@@ -8,10 +8,6 @@ android {
     namespace 'com.fabrick.librarywl'
     compileSdk 31
 
-    aaptOptions {
-        ignoreAssetsPattern "!*"
-    }
-
     defaultConfig {
         minSdk 24
         targetSdk 31
@@ -21,16 +17,16 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    defaultPublishConfig "firstAppRelease"
-
     flavorDimensions 'version'
     productFlavors {
         firstApp {
-            dimension 'version'
             resValue "string", "app_name", "First App"
             buildTypes {
                 debug {
                     buildConfigField 'String', "URL", "\"https://www.google.it/\""
+                }
+                pre {
+                    buildConfigField 'String', "URL", "\"https://www.yahoo.it/\""
                 }
                 release {
                     minifyEnabled false
@@ -40,11 +36,13 @@ android {
             }
         }
         secondApp {
-            dimension 'version'
             resValue "string", "app_name", "Second App"
             buildTypes {
                 debug {
                     buildConfigField 'String', "URL", "\"https://www.google.it/\""
+                }
+                pre {
+                    buildConfigField 'String', "URL", "\"https://www.yahoo.it/\""
                 }
                 release {
                     minifyEnabled false
@@ -54,11 +52,13 @@ android {
             }
         }
         thirdApp {
-            dimension 'version'
             resValue "string", "app_name", "Third App"
             buildTypes {
                 debug {
                     buildConfigField 'String', "URL", "\"https://www.google.it/\""
+                }
+                pre {
+                    buildConfigField 'String', "URL", "\"https://www.yahoo.it/\""
                 }
                 release {
                     minifyEnabled false
@@ -76,6 +76,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    publishing {
+        // Publishes all build variants with "default" component
+        multipleVariants {
+            allVariants()
+        }
+    }
+
 }
 
 dependencies {
@@ -94,32 +102,17 @@ task comps {
     }
 }
 */
-task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.javaDirectories
-}
 
-artifacts {
-    archives sourcesJar
-}
-
-if (android.productFlavors.size() > 0) {
-    android.libraryVariants.all { variant ->
-
-        if (variant.name.toLowerCase().contains("debug")) {
-            return
-        }
-
-        def bundleTask = tasks["bundle${variant.name.capitalize()}Aar"]
-
-        artifacts {
-            archives(bundleTask.archivePath) {
-                classifier variant.flavorName
-                builtBy bundleTask
-                name = project.name
+afterEvaluate {
+    publishing {
+        publications {
+            allVariants(MavenPublication) {
+                from components.default
+                groupId = 'com.github.vittorioriva98'
+                artifactId = 'librarywl'
+                version = '1.0.0'
             }
         }
-
     }
 }
 
@@ -136,6 +129,4 @@ afterEvaluate {
             }
         }
     }
-}
-
- */
+}*/
