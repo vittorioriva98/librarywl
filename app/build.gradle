@@ -97,30 +97,15 @@ task comps {
     }
 }
 
-
 afterEvaluate {
     publishing {
         publications {
-            firstAppRelease(MavenPublication) {
-                from components.firstAppRelease
+            release(MavenPublication) {
+                from components.all
 
                 groupId = 'com.github.vittorioriva98'
-                artifactId = 'librarywl-firstapp'
-                version = '1.0.1'
-            }
-            secondAppRelease(MavenPublication) {
-                from components.secondAppRelease
-
-                groupId = 'com.github.vittorioriva98'
-                artifactId = 'librarywl-secondapp'
-                version = '1.0.1'
-            }
-            thirdAppRelease(MavenPublication) {
-                from components.thirdAppRelease
-
-                groupId = 'com.github.vittorioriva98'
-                artifactId = 'librarywl-thirdapp'
-                version = '1.0.1'
+                artifactId = 'librarywl'
+                version = '1.0.0'
             }
         }
     }
