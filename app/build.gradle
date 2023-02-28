@@ -17,6 +17,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    defaultPublishConfig "firstAppRelease"
+
     flavorDimensions 'version'
     productFlavors {
         firstApp {
@@ -24,9 +26,6 @@ android {
             resValue "string", "app_name", "First App"
             buildTypes {
                 debug {
-                    buildConfigField 'String', "URL", "\"https://www.google.it/\""
-                }
-                pre {
                     buildConfigField 'String', "URL", "\"https://www.google.it/\""
                 }
                 release {
@@ -43,9 +42,6 @@ android {
                 debug {
                     buildConfigField 'String', "URL", "\"https://www.google.it/\""
                 }
-                pre {
-                    buildConfigField 'String', "URL", "\"https://www.google.it/\""
-                }
                 release {
                     minifyEnabled false
                     proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -58,9 +54,6 @@ android {
             resValue "string", "app_name", "Third App"
             buildTypes {
                 debug {
-                    buildConfigField 'String', "URL", "\"https://www.google.it/\""
-                }
-                pre {
                     buildConfigField 'String', "URL", "\"https://www.google.it/\""
                 }
                 release {
@@ -90,13 +83,43 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
-
+/*
 task comps {
     afterEvaluate {
         println("Components: " + components*.name)
     }
 }
+*/
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.javaDirectories
+}
 
+artifacts {
+    archives sourcesJar
+}
+
+if (android.productFlavors.size() > 0) {
+    android.libraryVariants.all { variant ->
+
+        if (variant.name.toLowerCase().contains("debug")) {
+            return
+        }
+
+        def bundleTask = tasks["bundle${variant.name.capitalize()}Aar"]
+
+        artifacts {
+            archives(bundleTask.archivePath) {
+                classifier variant.flavorName
+                builtBy bundleTask
+                name = project.name
+            }
+        }
+
+    }
+}
+
+/*
 afterEvaluate {
     publishing {
         publications {
@@ -110,3 +133,5 @@ afterEvaluate {
         }
     }
 }
+
+ */
