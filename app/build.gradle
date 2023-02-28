@@ -1,16 +1,16 @@
 plugins {
     id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
     id 'maven-publish'
 }
 
 android {
     namespace 'com.fabrick.librarywl'
-    compileSdk 33
+    compileSdk 31
 
     defaultConfig {
         minSdk 24
-        targetSdk 33
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -22,23 +22,56 @@ android {
         firstApp {
             dimension 'version'
             resValue "string", "app_name", "First App"
+            buildTypes {
+                debug {
+                    buildConfigField 'String', "URL", "httpss://www.google.it/"
+                }
+                pre {
+                    buildConfigField 'String', "URL", "httpss://www.google.it/"
+                }
+                release {
+                    minifyEnabled false
+                    proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                    buildConfigField 'String', "URL", "httpss://www.google.it/"
+                }
+            }
         }
         secondApp {
             dimension 'version'
             resValue "string", "app_name", "Second App"
+            buildTypes {
+                debug {
+                    buildConfigField 'String', "URL", "httpss://www.google.it/"
+                }
+                pre {
+                    buildConfigField 'String', "URL", "httpss://www.google.it/"
+                }
+                release {
+                    minifyEnabled false
+                    proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                    buildConfigField 'String', "URL", "httpss://www.google.it/"
+                }
+            }
         }
         thirdApp {
             dimension 'version'
             resValue "string", "app_name", "Third App"
+            buildTypes {
+                debug {
+                    buildConfigField 'String', "URL", "httpss://www.google.it/"
+                }
+                pre {
+                    buildConfigField 'String', "URL", "httpss://www.google.it/"
+                }
+                release {
+                    minifyEnabled false
+                    proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                    buildConfigField 'String', "URL", "httpss://www.google.it/"
+                }
+            }
         }
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -58,15 +91,35 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
 
+task comps {
+    afterEvaluate {
+        println("Components: " + components*.name)
+    }
+}
+
 
 afterEvaluate {
     publishing {
         publications {
-            release(MavenPublication) {
-                from components.release
+            firstAppRelease(MavenPublication) {
+                from components.firstAppRelease
 
                 groupId = 'com.github.vittorioriva98'
-                artifactId = 'librarywl'
+                artifactId = 'librarywl-firstapp'
+                version = '1.0'
+            }
+            secondAppRelease(MavenPublication) {
+                from components.secondAppRelease
+
+                groupId = 'com.github.vittorioriva98'
+                artifactId = 'librarywl-secondapp'
+                version = '1.0'
+            }
+            thirdAppRelease(MavenPublication) {
+                from components.thirdAppRelease
+
+                groupId = 'com.github.vittorioriva98'
+                artifactId = 'librarywl-thirdapp'
                 version = '1.0'
             }
         }
