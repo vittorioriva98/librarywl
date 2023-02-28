@@ -8,6 +8,10 @@ android {
     namespace 'com.fabrick.librarywl'
     compileSdk 31
 
+    aaptOptions {
+        ignoreAssetsPattern "!*"
+    }
+
     defaultConfig {
         minSdk 24
         targetSdk 31
