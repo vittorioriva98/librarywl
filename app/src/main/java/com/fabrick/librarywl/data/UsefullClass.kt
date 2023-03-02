@@ -4,7 +4,9 @@ import com.fabrick.librarywl.BuildConfig
 import com.fabrick.librarywl.data.di.DaggerInstanceModule
 import com.fabrick.librarywl.domain.UsefullClassInt
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 public class UsefullClass @Inject constructor(
     private val phoneBookRepository: PhoneBookRepository
 ): UsefullClassInt {
