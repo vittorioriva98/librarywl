@@ -6,18 +6,10 @@ plugins {
     id 'com.google.dagger.hilt.android'
 }
 
-kotlin {
-    explicitApi()
-}
-
 android {
     namespace 'com.fabrick.librarywl'
     resourcePrefix 'libraryws_'
     compileSdk 31
-
-    kotlin {
-        explicitApi()
-    }
 
     defaultConfig {
         minSdk 24
@@ -151,3 +143,14 @@ afterEvaluate {
         }
     }
 }*/
+
+
+/**
+ * Link utili
+ *
+ * https://developer.android.com/studio/publish-library/configure-pub-variants
+ * https://jitpack.io/#vittorioriva98/librarywl
+ * https://github.com/philipplackner/AndroidLibrary/blob/master/image-preview/build.gradle
+ * https://www.youtube.com/watch?v=EzC-FXeZiIk
+ *
+ */
