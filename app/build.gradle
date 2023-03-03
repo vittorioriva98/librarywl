@@ -21,49 +21,87 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    flavorDimensions 'version'
+    flavorDimensions 'configuration'
     productFlavors {
-        firstApp {
+        firstConf {
+            dimension 'configuration'
             resValue "string", "app_name", "First App"
+            //manifestPlaceholders = [] -> it's a Map<String, String>, it's used for replace value in the manifest
+            buildTypes {
+                debugFirstConf {
+                    initWith debug
+                    buildConfigField 'String', "URL", "\"https://www.google.it/debugFirstConf\""
+                }
+                preFirstConf {
+                    initWith debugFirstConf
+                    buildConfigField 'String', "URL", "\"https://www.google.it/preFirstConf\""
+                }
+                releaseFirstConf {
+                    minifyEnabled false
+                    proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                    buildConfigField 'String', "URL", "\"https://www.google.it/releaseFirstConf\""
+                }
+            }
         }
-        secondApp {
+        secondConf {
+            dimension 'configuration'
             resValue "string", "app_name", "Second App"
+            //manifestPlaceholders = []
+            buildTypes {
+                debugSecondConf {
+                    initWith debug
+                    buildConfigField 'String', "URL", "\"https://www.google.it/debugSecondConf\""
+                }
+                preSecondConf {
+                    initWith debugSecondConf
+                    buildConfigField 'String', "URL", "\"https://www.google.it/preSecondConf\""
+                }
+                releaseSecondConf {
+                    minifyEnabled false
+                    proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                    buildConfigField 'String', "URL", "\"https://www.google.it/releaseSecondConf\""
+                }
+            }
         }
-        thirdApp {
+        thirdConf {
+            dimension 'configuration'
             resValue "string", "app_name", "Third App"
-        }
-    }
-
-    buildTypes {
-        debug {
-
-        }
-        pre {
-            initWith debug
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //manifestPlaceholders = []
+            buildTypes {
+                debugThirdConf {
+                    initWith debug
+                    buildConfigField 'String', "URL", "\"https://www.google.it/debugThirdConf\""
+                }
+                preThirdConf {
+                    initWith debugThirdConf
+                    buildConfigField 'String', "URL", "\"https://www.google.it/preThirdConf\""
+                }
+                releaseThirdConf {
+                    minifyEnabled false
+                    proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                    buildConfigField 'String', "URL", "\"https://www.google.it/releaseThirdConf\""
+                }
+            }
         }
     }
 
     sourceSets {
-        firstApp {
-            java.srcDirs = ['src/firstApp/java']
-            res.srcDirs = ['src/firstApp/res']
-            assets.srcDirs = ['src/firstApp/assets']
+        firstConf {
+            java.srcDirs = ['src/firstConf/java']
+            res.srcDirs = ['src/firstConf/res']
+            assets.srcDirs = ['src/firstConf/assets']
         }
 
-        secondApp {
-            java.srcDirs = ['src/secondApp/java']
-            res.srcDirs = ['src/secondApp/res']
-            assets.srcDirs = ['src/secondApp/assets']
+        secondConf {
+            java.srcDirs = ['src/secondConf/java']
+            res.srcDirs = ['src/secondConf/res']
+            assets.srcDirs = ['src/secondConf/assets']
         }
 
-        thirdApp {
-            java.srcDirs = ['src/thirdApp/java']
-            res.srcDirs = ['src/thirdApp/res']
-            assets.srcDirs = ['src/thirdApp/assets']
+        thirdConf {
+            java.srcDirs = ['src/thirdConf/java']
+            res.srcDirs = ['src/thirdConf/res']
+            assets.srcDirs = ['src/thirdConf/assets']
         }
     }
 
