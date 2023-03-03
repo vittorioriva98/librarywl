@@ -16,6 +16,7 @@ android {
         targetSdk 31
         versionCode 2
         versionName "1.0.1"
+        buildConfigField 'String', "URL", "\"https://www.google.it/\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,15 +27,14 @@ android {
             resValue "string", "app_name", "First App"
             buildTypes {
                 debug {
-                    buildConfigField 'String', "URL", "\"https://www.google.it/firstAppDebug\""
+
                 }
                 pre {
-                    buildConfigField 'String', "URL", "\"https://www.yahoo.it/firstAppPre\""
+                    initWith debug
                 }
                 release {
                     minifyEnabled false
                     proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-                    buildConfigField 'String', "URL", "\"https://www.google.it/firstAppRelease\""
                 }
             }
         }
@@ -42,15 +42,14 @@ android {
             resValue "string", "app_name", "Second App"
             buildTypes {
                 debug {
-                    buildConfigField 'String', "URL", "\"https://www.google.it/secondAppDebug\""
+
                 }
                 pre {
-                    buildConfigField 'String', "URL", "\"https://www.yahoo.it/secondAppPre\""
+                    initWith debug
                 }
                 release {
                     minifyEnabled false
                     proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-                    buildConfigField 'String', "URL", "\"https://www.google.it/secondAppRelease\""
                 }
             }
         }
@@ -58,15 +57,14 @@ android {
             resValue "string", "app_name", "Third App"
             buildTypes {
                 debug {
-                    buildConfigField 'String', "URL", "\"https://www.google.it/thirdAppDebug\""
+
                 }
                 pre {
-                    buildConfigField 'String', "URL", "\"https://www.yahoo.it/thirdAppPre\""
+                    initWith debug
                 }
                 release {
                     minifyEnabled false
                     proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-                    buildConfigField 'String', "URL", "\"https://www.google.it/thirdAppRelease\""
                 }
             }
         }
