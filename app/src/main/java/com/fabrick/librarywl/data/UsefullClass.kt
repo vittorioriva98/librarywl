@@ -13,7 +13,9 @@ public class UsefullClass @Inject constructor(
 
     private var name: String = ""
     companion object {
-        fun getInstance(): UsefullClassInt = DaggerInstanceModule.builder().build().getUsefullClass()
+
+        private val instance = DaggerInstanceModule.builder().build().getUsefullClass()
+        fun getInstance(): UsefullClassInt = instance
     }
 
     override fun setName(n: String) {
