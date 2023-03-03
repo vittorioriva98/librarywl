@@ -26,15 +26,15 @@ android {
             resValue "string", "app_name", "First App"
             buildTypes {
                 debug {
-                    buildConfigField 'String', "URL", "\"https://www.google.it/\""
+                    buildConfigField 'String', "URL", "\"https://www.google.it/firstAppDebug\""
                 }
                 pre {
-                    buildConfigField 'String', "URL", "\"https://www.yahoo.it/\""
+                    buildConfigField 'String', "URL", "\"https://www.yahoo.it/firstAppPre\""
                 }
                 release {
                     minifyEnabled false
                     proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-                    buildConfigField 'String', "URL", "\"https://www.google.it/\""
+                    buildConfigField 'String', "URL", "\"https://www.google.it/firstAppRelease\""
                 }
             }
         }
@@ -42,15 +42,15 @@ android {
             resValue "string", "app_name", "Second App"
             buildTypes {
                 debug {
-                    buildConfigField 'String', "URL", "\"https://www.google.it/\""
+                    buildConfigField 'String', "URL", "\"https://www.google.it/secondAppDebug\""
                 }
                 pre {
-                    buildConfigField 'String', "URL", "\"https://www.yahoo.it/\""
+                    buildConfigField 'String', "URL", "\"https://www.yahoo.it/secondAppPre\""
                 }
                 release {
                     minifyEnabled false
                     proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-                    buildConfigField 'String', "URL", "\"https://www.google.it/\""
+                    buildConfigField 'String', "URL", "\"https://www.google.it/secondAppRelease\""
                 }
             }
         }
@@ -58,17 +58,37 @@ android {
             resValue "string", "app_name", "Third App"
             buildTypes {
                 debug {
-                    buildConfigField 'String', "URL", "\"https://www.google.it/\""
+                    buildConfigField 'String', "URL", "\"https://www.google.it/thirdAppDebug\""
                 }
                 pre {
-                    buildConfigField 'String', "URL", "\"https://www.yahoo.it/\""
+                    buildConfigField 'String', "URL", "\"https://www.yahoo.it/thirdAppPre\""
                 }
                 release {
                     minifyEnabled false
                     proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-                    buildConfigField 'String', "URL", "\"https://www.google.it/\""
+                    buildConfigField 'String', "URL", "\"https://www.google.it/thirdAppRelease\""
                 }
             }
+        }
+    }
+
+    sourceSets {
+        firstApp {
+            java.srcDirs = ['src/firstApp/java']
+            res.srcDirs = ['src/firstApp/res']
+            assets.srcDirs = ['src/firstApp/assets']
+        }
+
+        secondApp {
+            java.srcDirs = ['src/secondApp/java']
+            res.srcDirs = ['src/secondApp/res']
+            assets.srcDirs = ['src/secondApp/assets']
+        }
+
+        thirdApp {
+            java.srcDirs = ['src/thirdApp/java']
+            res.srcDirs = ['src/thirdApp/res']
+            assets.srcDirs = ['src/thirdApp/assets']
         }
     }
 
@@ -95,12 +115,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
 
-    api ("com.google.dagger:hilt-android:2.44") {
-        transitive = true
-    }
-    kapt ("com.google.dagger:hilt-compiler:2.44") {
-        transitive = true
-    }
+    api ("com.google.dagger:hilt-android:2.44")
+    kapt ("com.google.dagger:hilt-compiler:2.44")
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
