@@ -13,11 +13,11 @@ class SingletonClass @Inject constructor(
     var text = ""
 
     companion object {
-        private lateinit var instance: SingletonClass
+        private var instance: SingletonClass? = null
         fun getInstance(): SingletonClass {
             if (instance == null)
                 instance = DaggerInstanceModule.builder().build().getSingletonClass()
-            return instance
+            return instance!!
         }
     }
 
