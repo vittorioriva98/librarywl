@@ -6,16 +6,13 @@ import com.fabrick.librarywl.domain.UsefullClassInt
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 public class UsefullClass @Inject constructor(
     private val phoneBookRepository: PhoneBookRepository
 ): UsefullClassInt {
 
     private var name: String = ""
     companion object {
-
-        private val instance = DaggerInstanceModule.builder().build().getUsefullClass()
-        fun getInstance(): UsefullClassInt = instance
+        fun getInstance(): UsefullClassInt = DaggerInstanceModule.builder().build().getUsefullClass()
     }
 
     override fun setName(n: String) {
